@@ -17,7 +17,8 @@
         v-for="(item, index) in carouselItems"
         :key="index"
         :name="index"
-        class="q-px-auto q-py-lg bg-orange"
+        class="q-px-auto q-py-lg"
+        :class="index % 2? 'bg-orange' : 'bg-info'"
       >
         <q-img
           class="block q-mx-auto"
