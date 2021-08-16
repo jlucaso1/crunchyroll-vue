@@ -1,0 +1,8 @@
+{
+  "redirects": [
+    {
+      "source": "/cors/*",
+      "destination": "https://beta-api.crunchyroll.com/:path*"
+    }
+  ]
+}

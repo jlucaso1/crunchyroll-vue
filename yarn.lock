@@ -5115,13 +5115,12 @@ pify@^3.0.0:
   resolved "https://registry.yarnpkg.com/pify/-/pify-3.0.0.tgz#e5a4acd2c101fdf3d9a4d07f0dbc4db49dd28176"
   integrity sha1-5aSs0sEB/fPZpNB/DbxNtJ3SgXY=
 
-pinia@^2.0.0-rc.4:
-  version "2.0.0-rc.4"
-  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.0-rc.4.tgz#43fca89aeb8d397ca9900f001c2125c4d6765dd6"
-  integrity sha512-I43V1TIFyDWT4UTi1CPLQXQZYXGQHQMKpDPI+oxC2fv0c+ej0fQBoKCn4WbfRWB+Vf5chhWM97GFLI+OWmUQEQ==
+pinia@2.0.0-beta.5:
+  version "2.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.0-beta.5.tgz#4825e66f939a50d6b11ffc4816b6e56b22fd0752"
+  integrity sha512-0XvufXNkEvl7Fk6wrg5DH/JYPihkoknet950SQNIlWxXpeI7omwR0H00QPIiEYkrdbsiHXJyvI2XndWGvD4v5A==
   dependencies:
     "@vue/devtools-api" "^6.0.0-beta.15"
-    vue-demi latest
 
 pkg-dir@^4.1.0:
   version "4.2.0"
@@ -6509,11 +6508,6 @@ vendors@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.4.tgz#e2b800a53e7a29b93506c3cf41100d16c4c4ad8e"
   integrity sha512-/juG65kTL4Cy2su4P8HjtkTxk6VmJDiOPBufWniqQ6wknac6jNiXS9vU+hO3wgusiyqWlzTbVHi0dyJqRONg3w==
-
-vue-demi@latest:
-  version "0.11.3"
-  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.11.3.tgz#dd7495b92b495ecfa35675bf024b1358a7add150"
-  integrity sha512-DpM0TTMpclRZDV6AIacgg837zrim/C9Zn+2ztXBs9hsESJN9vC83ztjTe4KC4HgJuVle8YUjPp7HTwWtwOHfmg==
 
 vue-eslint-parser@^7.10.0:
   version "7.10.0"

@@ -3,8 +3,12 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useCrunchyrollStore } from './stores/crunchyroll';
 
 export default defineComponent({
-  name: 'App'
-})
+  name: 'App',
+  setup() {
+    useCrunchyrollStore().getToken();
+  },
+});
 </script>

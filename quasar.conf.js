@@ -22,12 +22,13 @@ module.exports = configure(function (ctx) {
       },
     },
     // https://v2.quasar.dev/quasar-cli/prefetch-feature
-    // preFetch: true,
+    preFetch: true,
+
 
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli/boot-files
-    boot: ['axios'],
+    boot: ['pinia', 'axios'],
 
     // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: ['app.scss'],
@@ -49,6 +50,12 @@ module.exports = configure(function (ctx) {
     // Full list of options: https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
+
+      env: {
+        CORS: ctx.dev
+          ? 'http://localhost:8082'
+          : 'https://crunchyroll-vue.vercel.app',
+      },
 
       // transpile: false,
 
@@ -78,6 +85,16 @@ module.exports = configure(function (ctx) {
       https: false,
       port: 8082,
       open: false, // opens browser window automatically
+      proxy: {
+        // proxy all requests starting with /api to jsonplaceholder
+        '/cors': {
+          target: 'https://beta-api.crunchyroll.com/',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/cors': '',
+          },
+        },
+      },
     },
 
     // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
@@ -103,7 +120,7 @@ module.exports = configure(function (ctx) {
 
     // animations: 'all', // --- includes all animations
     // https://v2.quasar.dev/options/animations
-    animations: [],
+    animations: ['fadeIn', 'fadeOut'],
 
     // https://v2.quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
