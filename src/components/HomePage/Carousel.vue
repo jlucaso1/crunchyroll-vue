@@ -1,7 +1,8 @@
 <template>
   <div>
     <q-carousel
-      autoplay
+      swipeable
+      :autoplay="6000"
       infinite
       v-model="slide"
       transition-prev="slide-right"
@@ -11,6 +12,7 @@
       height="100%"
       arrows
       ref="carousel"
+      keep-alive
       @update:model-value="OnUpdateCarousel"
     >
       <q-carousel-slide
@@ -18,7 +20,7 @@
         :key="index"
         :name="index"
         class="q-px-auto q-py-lg"
-        :class="index % 2? 'bg-orange' : 'bg-info'"
+        :class="index % 2 ? 'bg-orange' : 'bg-info'"
       >
         <q-img
           class="block q-mx-auto"
@@ -42,6 +44,12 @@
           flat
           @click="OnClickCarouselTab(index)"
         >
+          <q-linear-progress
+            v-if="index == activeTabName"
+            :value="tabProgress"
+            class="absolute-top"
+            color="orange"
+          />
           <div class="carousel-tabs-text ellipsis-2 text-subtitle2 text-left">
             {{ item.title }}
           </div>
@@ -52,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onUnmounted } from 'vue';
 import { Screen } from 'quasar';
 import Container from '../layout/Container.vue';
 import { QCarousel } from 'quasar';
@@ -140,8 +148,18 @@ const carouselItems = [
 export default {
   components: { Container },
   setup() {
+    const tabProgress = ref(0);
     const carousel = ref<QCarousel>();
     const activeTabName = ref(0);
+
+    var interval = setInterval(() => {
+      tabProgress.value += 60 / 6000;
+    }, 60);
+
+    onUnmounted(() => {
+      clearInterval(interval);
+    });
+
     return {
       carousel,
       slide: ref(0),
@@ -165,7 +183,9 @@ export default {
         }
         return images;
       },
+      tabProgress,
       OnUpdateCarousel: (name: number) => {
+        tabProgress.value = 0;
         activeTabName.value = name;
       },
       OnClickCarouselTab: (name: number) => {
