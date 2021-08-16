@@ -8,7 +8,7 @@ import { useCrunchyrollStore } from './stores/crunchyroll';
 export default defineComponent({
   name: 'App',
   setup() {
-    useCrunchyrollStore().getToken();
+    void useCrunchyrollStore().getToken();
   },
 });
 </script>
