@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <slot></slot>
+    <slot />
   </div>
 </template>
 
@@ -26,6 +26,7 @@
   .container,
   .container-sm,
   .container-md {
+    padding: 0 2rem;
     max-width: 920px;
   }
 }
