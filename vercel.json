@@ -1,8 +1,9 @@
 {
   "redirects": [
     {
-      "source": "/cors/:path",
-      "destination": "https://beta-api.crunchyroll.com/:path"
+      "source": "/cors/:path*",
+      "destination": "https://beta-api.crunchyroll.com/:path*",
+      "statusCode": 200
     }
   ]
 }
