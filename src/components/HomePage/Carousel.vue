@@ -26,7 +26,8 @@
           class="block q-mx-auto"
           :style="{
             width: gtSm ? '100%' : 'calc(55.47% + 1rem)',
-            maxWidth: '960px',
+            maxWidth: gtSm ? '960px': '426px',
+            maxHeight: gtSm ? '540px' : '639px'
           }"
           :src="carouselImages()[index]"
         />
