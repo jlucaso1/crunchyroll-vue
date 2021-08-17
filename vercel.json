@@ -7,6 +7,10 @@
     {
       "source": "/cors/:path*/",
       "destination": "https://beta-api.crunchyroll.com/:path*/"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
