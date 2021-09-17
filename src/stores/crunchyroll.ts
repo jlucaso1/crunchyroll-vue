@@ -10,6 +10,24 @@ export const useCrunchyrollStore = defineStore({
     homeFeedItems: [] as IHomeFeedItem[],
   }),
   actions: {
+    login(auth: { username: string; password: string }) {
+      const data = {
+        username: auth.username,
+        password: auth.password,
+        grant_type: 'password',
+        scope: 'offline_access',
+      };
+      return api({
+        method: 'post',
+        url: '/auth/v1/token',
+        headers: {
+          Authorization:
+            'Basic c3FrbHVramp3Mmp3cGk0ajVsdnQ6cEdLM2d3UjRJZlhzeEstMnl1SGxaSXlqU25wR1JLdVc=',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        data: new URLSearchParams(data),
+      });
+    },
     getToken() {
       return api
         .post('/auth/v1/token', 'grant_type=client_id', {

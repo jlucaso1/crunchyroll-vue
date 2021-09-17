@@ -1,6 +1,6 @@
 <template>
-  <q-header elevated>
-    <q-toolbar class="bg-black-cr q-px-none" style="height: 3.75rem">
+  <q-header elevated class="bg-black-cr">
+    <q-toolbar class="bg-black-cr q-px-none container" style="height: 3.75rem">
       <q-btn icon="menu" flat stretch class="lt-md" />
       <logo />
 
@@ -19,22 +19,19 @@
       <q-space />
       <q-btn icon="search" flat stretch />
       <q-btn icon="bookmark_border" flat stretch class="gt-xs" />
-      <q-btn-dropdown flat stretch no-icon-animation>
-        <template v-slot:label>
-          <q-avatar>
-            <img src="https://avatars.githubusercontent.com/u/55464917?v=4" />
-          </q-avatar>
-        </template>
-      </q-btn-dropdown>
+
+      <profile-dropdown />
     </q-toolbar>
   </q-header>
 </template>
 
 <script lang="ts">
 import Logo from 'src/components/layout/Logo.vue';
+import ProfileDropdown from '../ProfileDropdown.vue';
 export default {
   components: {
     Logo,
+    ProfileDropdown,
   },
 };
 </script>
