@@ -8,7 +8,6 @@
         filled
         v-model="username"
         label="E-mail ou Nome de Usuário"
-        hint="E-mail ou Nome de Usuário"
         lazy-rules
         :rules="[(val) => (val && val.length > 0) || 'Por favor digite algo!']"
       />
@@ -51,8 +50,8 @@ export default defineComponent({
         store
           .login({ username: username.value, password: password.value })
           .then(() => {
-            void router.replace('/');
-            console.log('sucesso')
+            void router.push('/');
+            console.log('sucesso');
           })
           .catch((err) => {
             console.log(err);

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
+import { LocalStorage } from 'quasar';
 import { api } from 'src/boot/axios';
-import { IHomeFeedItem, IToken, ITokenCms } from 'src/utils/types';
+import { IHomeFeedItem, IProfile, IToken, ITokenCms } from 'src/utils/types';
 
 export const useCrunchyrollStore = defineStore({
   id: 'crunchyroll',
@@ -8,6 +9,7 @@ export const useCrunchyrollStore = defineStore({
     token: {} as IToken,
     tokenCms: {} as ITokenCms,
     homeFeedItems: [] as IHomeFeedItem[],
+    profile: {} as IProfile,
   }),
   actions: {
     login(auth: { username: string; password: string }) {
@@ -26,6 +28,13 @@ export const useCrunchyrollStore = defineStore({
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         data: new URLSearchParams(data),
+      }).then((res) => {
+        this.token = res.data as IToken;
+        this.token.timestamp = Date.now();
+        api.defaults.headers = {
+          Authorization: 'Bearer ' + this.token.access_token,
+        };
+        LocalStorage.set('token', this.token);
       });
     },
     getToken() {
@@ -73,6 +82,11 @@ export const useCrunchyrollStore = defineStore({
         .catch((error) => {
           console.log(error);
         });
+    },
+    getProfile() {
+      return api('/accounts/v1/me/profile').then((res) => {
+        this.profile = res.data as IProfile;
+      });
     },
   },
 });

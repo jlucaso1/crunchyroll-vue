@@ -1,18 +1,24 @@
 <template>
-  <q-btn-dropdown flat stretch>
+  <q-btn-dropdown flat stretch v-if="profile.avatar">
     <template v-slot:label>
       <q-avatar>
-        <img src="https://avatars.githubusercontent.com/u/55464917?v=4" />
+        <img
+          :src="`https://static.crunchyroll.com/assets/avatar/170x170/${profile?.avatar}`"
+        />
       </q-avatar>
     </template>
     <div>
       <div class="items-center q-mx-md q-gutter-y-md q-py-md">
         <div class="flex items-center q-gutter-x-md">
           <q-avatar size="64px">
-            <img src="https://avatars.githubusercontent.com/u/55464917?v=4" />
+            <img
+              :src="`https://static.crunchyroll.com/assets/avatar/170x170/${profile?.avatar}`"
+            />
           </q-avatar>
 
-          <div class="text-subtitle1 q-mt-md q-mb-xs">jlucaso</div>
+          <div class="text-subtitle2 q-mt-md q-mb-xs">
+            {{ profile?.username }}
+          </div>
         </div>
 
         <q-btn
@@ -35,3 +41,19 @@
     </div>
   </q-btn-dropdown>
 </template>
+<script>
+import { ref, computed } from 'vue';
+import { useCrunchyrollStore } from 'src/stores/crunchyroll';
+export default {
+  setup() {
+    const store = useCrunchyrollStore();
+    const loading = ref(true);
+    store.getProfile().finally(() => (loading.value = true));
+    const profile = computed(() => store.profile);
+    return {
+      loading,
+      profile,
+    };
+  },
+};
+</script>
