@@ -7,7 +7,7 @@
         quiser.
       </div>
       <q-btn label="Criar Conta" color="orange" />
-      <q-btn label="Entrar" color="orange" />
+      <q-btn :to="{name: 'Login'}" label="Entrar" color="orange" />
     </div>
   </q-page>
 </template>

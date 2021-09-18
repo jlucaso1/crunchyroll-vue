@@ -11,6 +11,17 @@ export const useCrunchyrollStore = defineStore({
     homeFeedItems: [] as IHomeFeedItem[],
     profile: {} as IProfile,
   }),
+  getters: {
+    isAuthenticated(): boolean {
+      return !this.tokenExpired;
+    },
+    tokenExpired(): boolean {
+      if(Object.entries(this.token).length == 0) {
+        return true;
+      }
+      return this.token.timestamp + this.token.expires_in * 60 * 60 < Date.now()
+    }
+  },
   actions: {
     login(auth: { username: string; password: string }) {
       const data = {
@@ -36,6 +47,16 @@ export const useCrunchyrollStore = defineStore({
         };
         LocalStorage.set('token', this.token);
       });
+    },
+    logout() {
+      return new Promise((resolve) => {
+        this.token = {} as IToken;
+        this.tokenCms = {} as ITokenCms;
+        this.profile = {} as IProfile;
+        this.homeFeedItems = [] as IHomeFeedItem[];
+        LocalStorage.clear();
+        resolve(null);
+      })
     },
     getToken() {
       return api
@@ -88,5 +109,21 @@ export const useCrunchyrollStore = defineStore({
         this.profile = res.data as IProfile;
       });
     },
+    refreshToken() {
+      return api({
+        method: 'POST',
+        url: '/auth/v1/token',
+        headers: {
+          'authorization': 'Basic bm9haWhkZXZtXzZpeWcwYThsMHE6',
+        }
+      }).then((res) => {
+        this.token = res.data as IToken;
+        this.token.timestamp = Date.now();
+        api.defaults.headers = {
+          Authorization: 'Bearer ' + this.token.access_token,
+        };
+        LocalStorage.set('token', this.token);
+      })
+    }
   },
 });

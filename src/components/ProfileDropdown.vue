@@ -38,21 +38,35 @@
           </div>
         </div>
       </q-btn>
+      <div>
+        <q-btn label="Sair da conta" color="red" @click="OnLogout"/>
+      </div>
     </div>
   </q-btn-dropdown>
 </template>
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useCrunchyrollStore } from 'src/stores/crunchyroll';
+import {useRouter} from 'vue-router'
+import { Notify } from 'quasar';
 export default {
   setup() {
     const store = useCrunchyrollStore();
     const loading = ref(true);
-    store.getProfile().finally(() => (loading.value = true));
     const profile = computed(() => store.profile);
+    const router = useRouter();
+    onMounted(() => {
+      store.getProfile().finally(() => (loading.value = true));
+    })
     return {
       loading,
       profile,
+      OnLogout() {
+        void store.logout().then(() => {
+          void router.push('/auth');
+          Notify.create({message: 'Você saiu com sucesso!', color: 'success'})
+        });
+      }
     };
   },
 };
